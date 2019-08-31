@@ -1,0 +1,19 @@
+version: "3.4"
+
+services:
+  nats:
+    image: nats
+    expose: 
+     - "8222"
+    ports:
+      - "4222:4222"
+    hostname: nats-server
+
+  natsboard:
+    image: chrkaatz/natsboard
+    command: bin/natsboard --nats-mon-url http://nats:8222
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    depends_on:
+      - nats
